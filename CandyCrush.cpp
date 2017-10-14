@@ -24,10 +24,18 @@ void dump()
 int count()
 {
 	int c = 0;
+	int tmp = 0;
 	for(int x=0;x<ROW;x++)
 		for(int y=0;y<COL;y++)
 			if (grid[x][y])
 				c++;
+
+	for(int y=0;y<COL;y++)
+		tmp += c_height[y];
+
+	if (tmp != c)
+		printf ("ERROR \n");
+
 	return c;
 }
 
