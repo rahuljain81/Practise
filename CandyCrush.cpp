@@ -12,12 +12,12 @@ int c_height[COL];
 void dump()
 {
 	static int var = 0;
-	printf ("========%d========\n", var++);
-	for(int x=0;x<ROW;x++)
+	printf("========%d========\n", var++);
+	for (int x = 0; x<ROW; x++)
 	{
-		for(int y=0;y<COL;y++)
-			printf ("%d", grid[x][y]);
-		printf ("\n");
+		for (int y = 0; y<COL; y++)
+			printf("%d", grid[x][y]);
+		printf("\n");
 	}
 }
 
@@ -25,23 +25,23 @@ int count()
 {
 	int c = 0;
 	int tmp = 0;
-	for(int x=0;x<ROW;x++)
-		for(int y=0;y<COL;y++)
+	for (int x = 0; x<ROW; x++)
+		for (int y = 0; y<COL; y++)
 			if (grid[x][y])
 				c++;
 
-	for(int y=0;y<COL;y++)
+	for (int y = 0; y<COL; y++)
 		tmp += c_height[y];
 
 	if (tmp != c)
-		printf ("ERROR \n");
+		printf("ERROR \n");
 
 	return c;
 }
 
 void up_down(int xx, int yy)
 {
-	int type = grid [xx][yy];
+	int type = grid[xx][yy];
 	int count = 0;
 
 	int x = xx;
@@ -49,72 +49,77 @@ void up_down(int xx, int yy)
 
 	//UP
 	x = xx; y = yy;
+#if 0
 	while (1)
 	{
-		if ((x-1) < 0 || grid[x-1][y] != type)
+		if ((x - 1) < 0 || grid[x - 1][y] != type)
 			break;
 		count++;
 		x = x - 1;
 	};
+#endif
 
 	//DOWN
 	x = xx; y = yy;
 	while (1)
 	{
-		if ((x+1) >= ROW || grid[x+1][y] != type)
+		if ((x + 1) >= ROW || grid[x + 1][y] != type)
 			break;
 		count++;
 		x = x + 1;
 	}
 
-	if (count > 2)
+	if (count >= 2)
 	{
 		//set in visited
+#if 0
 		x = xx; y = yy;
 		while (1)
 		{
-			if ((x-1) < 0 || grid[x-1][y] != type)
+			if ((x - 1) < 0 || grid[x - 1][y] != type)
 				break;
-			visited[x-1][y] = 1;
+			visited[x - 1][y] = 1;
 			x = x - 1;
 		};
+#endif
 
 		//DOWN
 		x = xx; y = yy;
 		while (1)
 		{
-			if ((x+1) >= ROW || grid[x+1][y] != type)
+			if ((x + 1) >= ROW || grid[x + 1][y] != type)
 				break;
-			visited[x+1][y] = 1;
+			visited[x + 1][y] = 1;
 			x = x + 1;
 		}
-		visited[xx][yy]=1;
+		visited[xx][yy] = 1;
 	}
 }
 
 void left_right(int xx, int yy)
 {
-	int type = grid [xx][yy];
+	int type = grid[xx][yy];
 	int count = 0;
 
 	int x = xx;
 	int y = yy;
 
+#if 0
 	//LEFT
 	x = xx; y = yy;
 	while (1)
 	{
-		if ((y-1) < 0 || grid[x][y-1] != type)
+		if ((y - 1) < 0 || grid[x][y - 1] != type)
 			break;
 		count++;
 		y = y - 1;
 	};
-
+#endif
 	//RIGHT
 	x = xx; y = yy;
 	while (1)
 	{
-		if ((y+1) >= COL || grid[x][y+1] != type)
+		if ((y + 1) >= COL || grid[x][y + 1] != type)
 			break;
 		count++;
 		y = y + 1;
@@ -123,62 +128,64 @@ void left_right(int xx, int yy)
 	if (count >= 2)
 	{
 		//set in visited
+#if 0
 		x = xx; y = yy;
 		while (1)
 		{
-			if ((y-1) < 0 || grid[x][y-1] != type)
+			if ((y - 1) < 0 || grid[x][y - 1] != type)
 				break;
-			visited[x][y-1] = 1;
+			visited[x][y - 1] = 1;
 			y = y - 1;
 		};
-
+#endif
 		//RIGHT
 		x = xx; y = yy;
 		while (1)
 		{
-			if ((y+1) >= ROW || grid[x][y+1] != type)
+			if ((y + 1) >= ROW || grid[x][y + 1] != type)
 				break;
-			visited[x][y+1] = 1;
+			visited[x][y + 1] = 1;
 			y = y + 1;
 		}
-		visited[xx][yy]=1;
+		visited[xx][yy] = 1;
 	}
 }
 
 void diagnol1(const int xx, const int yy, int flag)
 {
-	int type = grid [xx][yy];
+	int type = grid[xx][yy];
 	int count = 0;
 
 	int x = xx;
 	int y = yy;
 
+#if 0
 	//UPPER LEFT
 	x = xx; y = yy;
 	while (1)
 	{
-		if ((x-1) < 0 || (y-1) < 0 || grid[x-1][y-1] != type)
+		if ((x - 1) < 0 || (y - 1) < 0 || grid[x - 1][y - 1] != type)
 			break;
 
 		if (flag == 0)
 			count++;
 		else
-			visited[x-1][y-1] = 1;
+			visited[x - 1][y - 1] = 1;
 		y = y - 1;
 		x = x - 1;
 	};
-
+#endif
 	//DOWN RIGHT
 	x = xx; y = yy;
 	while (1)
 	{
-		if ((x+1) >= ROW || (y+1) >= COL || grid[x+1][y+1] != type)
+		if ((x + 1) >= ROW || (y + 1) >= COL || grid[x + 1][y + 1] != type)
 			break;
 
 		if (flag == 0)
 			count++;
 		else
-			visited[x+1][y+1] = 1;
+			visited[x + 1][y + 1] = 1;
 		y = y + 1;
 		x = x + 1;
 	}
@@ -186,44 +193,44 @@ void diagnol1(const int xx, const int yy, int flag)
 	if (count >= 2)
 	{
 		diagnol1(xx, yy, 1);
-		visited[xx][yy]=1;
+		visited[xx][yy] = 1;
 	}
 }
 
 void diagnol2(const int xx, const int yy, int flag)
 {
-	int type = grid [xx][yy];
+	int type = grid[xx][yy];
 	int count = 0;
 
 	int x = xx;
 	int y = yy;
-
+#if 0
 	//UPPER RIGHT
 	x = xx; y = yy;
 	while (1)
 	{
-		if ((x-1) < 0 || (y+1) < 0 || grid[x-1][y+1] != type)
+		if ((x - 1) < 0 || (y + 1) >= COL || grid[x - 1][y + 1] != type)
 			break;
 
 		if (flag == 0)
 			count++;
 		else
-			visited[x-1][y+1] = 1;
+			visited[x - 1][y + 1] = 1;
 		y = y + 1;
 		x = x - 1;
 	};
-
+#endif
 	//DOWN LEFT
 	x = xx; y = yy;
 	while (1)
 	{
-		if ((x+1) >= ROW || (y-1) >= COL || grid[x+1][y-1] != type)
+		if ((x + 1) >= ROW || (y - 1) < 0 || grid[x + 1][y - 1] != type)
 			break;
 
 		if (flag == 0)
 			count++;
 		else
-			visited[x+1][y-1] = 1;
+			visited[x + 1][y - 1] = 1;
 		y = y - 1;
 		x = x + 1;
 	}
@@ -231,7 +238,7 @@ void diagnol2(const int xx, const int yy, int flag)
 	if (count >= 2)
 	{
 		diagnol2(xx, yy, 1);
-		visited[xx][yy]=1;
+		visited[xx][yy] = 1;
 	}
 }
 
@@ -249,10 +256,10 @@ int delete_elements()
 				flag = 1;
 
 				//shift elements down from ROW-height till j index
-				for (int k=j; k > ROW-height; k--)
-					grid[k][i] = grid[k-1][i];
+				for (int k = j; k > ROW - height; k--)
+					grid[k][i] = grid[k - 1][i];
 
-				grid[ROW-height][i] = 0;
+				grid[ROW - height][i] = 0;
 				height--;
 				visited[j][i] = 0;
 			}
@@ -262,7 +269,7 @@ int delete_elements()
 	return flag;
 }
 
-void blast ()
+void blast()
 {
 	int type;
 
@@ -281,7 +288,7 @@ reset:
 				diagnol2(j, i, 0);
 			}
 		}
-	}	
+	}
 	if (delete_elements())
 	{
 		dump();
@@ -292,11 +299,11 @@ reset:
 
 int land(int g[ROW][COL])
 {
-	for (int i=0; i < ROW; i++)
+	for (int i = 0; i < ROW; i++)
 	{
 		for (int j = 0; j < COL; j++)
 			grid[i][j] = g[i][j];
-		c_height[i]=ROW;
+		c_height[i] = ROW;
 	}
 
 	dump();
