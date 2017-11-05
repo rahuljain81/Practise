@@ -73,8 +73,9 @@ static void run() {
 			printf ("pos %d len %d ori [%s] res [%s]\n", pos, len, ori, res);
 			if (strcmp(ori, res) != 0)
 			{
+				printf ("FAILED %d ============\n", strcmp(ori, res));
 				curScore = 0;
-				return;
+				//return;
 			}
 		}
 	}
